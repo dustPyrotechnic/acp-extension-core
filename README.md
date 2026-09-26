@@ -59,6 +59,19 @@ time-bounded.
 specially. Adapters map provider-native names to these values; consumers never
 infer behavior from a human-facing tool title.
 
+## Standard-input MCP servers
+
+Advertise `agentCapabilities._meta.lody.stdioMcp: { version: 1 }` only when an
+adapter accepts standard ACP `mcpServers` entries and installs their stdio
+transports before the session can run. ACP does not define a separate
+`mcpCapabilities.stdio` advertisement, so clients use this additive capability
+to decide whether to send built-in or user-configured MCP servers.
+
+When the capability is absent, a client sends no MCP servers. Once advertised,
+failure to validate or install any supplied server fails session setup instead
+of silently starting without it. The capability does not change the standard
+ACP MCP server payload or permit provider-specific transport fields.
+
 ## Automatic session titles
 
 Advertise `agentCapabilities._meta.lody.sessionTitle: { version: 1 }` when the

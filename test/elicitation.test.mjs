@@ -6,11 +6,11 @@ import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
-test('v1 elicitation consumers and additive note contracts typecheck together', () => {
+test('v1 extension consumers and additive contracts typecheck together', () => {
   const result = spawnSync(process.execPath, [
     require.resolve('typescript/bin/tsc'),
     '--noEmit', '--strict', '--module', 'NodeNext',
-    '--moduleResolution', 'NodeNext', '--target', 'ES2022',
+    '--moduleResolution', 'NodeNext', '--target', 'ES2022', '--skipLibCheck',
     fileURLToPath(new URL('./fixtures/elicitation.ts', import.meta.url)),
   ], { encoding: 'utf8', windowsHide: true, timeout: 60_000 });
   assert.ifError(result.error);

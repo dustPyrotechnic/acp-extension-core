@@ -12,6 +12,9 @@
   Adapters own deduplication/baselines; the shared accumulator is process-local.
   Counters that restart with the process must be scoped by a never-reused
   `_meta.lody.usageScopeId`; consumers sum scopes, never subtract across them.
+- `stdioMcp` means the adapter accepts standard ACP `mcpServers` and installs
+  their stdio transports before session work. Without it clients send no MCP
+  servers; after advertising it, installation failure fails session setup.
 - `worktreeProject` is logical identity only: never change ACP cwd, permissions,
   workspace roots, or worktree lifecycle ownership to implement project grouping.
 

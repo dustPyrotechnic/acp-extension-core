@@ -4,7 +4,10 @@ import type {
   LodyElicitationAnswerNote,
   LodyElicitationMeta,
   LodyElicitationQuestion,
+  LodyExtensionCapabilities,
+  SessionUsageUpdate,
 } from '../../src/index.js';
+import { MAX_USAGE_SCOPE_ID_LENGTH } from '../../src/index.js';
 
 // Existing v1 producers/consumers need no new required fields.
 const legacyQuestion: LodyElicitationQuestion = {
@@ -48,5 +51,17 @@ const missingFieldId: LodyElicitationAnswerNote = { title: 'Context' };
 // @ts-expect-error Future versions require explicit support, not optimistic handling.
 const unknownVersion: LodyClientExtensionCapabilities = { elicitation: { version: 2 } };
 
+const agentCapabilities = {
+  sessionTitle: { version: 1 },
+  stdioMcp: { version: 1 },
+} satisfies LodyExtensionCapabilities;
+const usageUpdate = {
+  sessionId: 'session-1',
+  usage: { inputTokens: 1, outputTokens: 1, cacheReadInputTokens: 0 },
+  _meta: { lody: { usageScopeId: 'runtime-1' } },
+} satisfies SessionUsageUpdate;
+const usageScopeLimit: number = MAX_USAGE_SCOPE_ID_LENGTH;
+
 void [legacyProperty, legacyAnswers, capabilities, noExtensions, oldElicitation,
-  noteProperty, persisted, invalidAnswer, missingFieldId, unknownVersion];
+  noteProperty, persisted, invalidAnswer, missingFieldId, unknownVersion,
+  agentCapabilities, usageUpdate, usageScopeLimit];
